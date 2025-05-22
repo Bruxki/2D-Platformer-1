@@ -21,6 +21,9 @@ public class MovementController : MonoBehaviour
 
     Vector2 relativeTransform;
 
+    public bool isOnPlatform;
+    public Rigidbody2D platformRb;
+
 
     private void Start()
     {
@@ -38,10 +41,20 @@ public class MovementController : MonoBehaviour
 
         float targetSpeed = speed * speedMultiplier * relativeTransform.x;
 
-        rb.linearVelocity = new Vector2 (targetSpeed, rb.linearVelocity.y);
+        if (isOnPlatform)
+        {
+            rb.linearVelocity = new Vector2(targetSpeed + platformRb.linearVelocity.x, rb.linearVelocity.y);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(targetSpeed, rb.linearVelocity.y);
+        }
 
 
-        isWallTouch = Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.03f, 0.6f), 0, wallLayer);
+
+
+
+            isWallTouch = Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.06f, 0.6f), 0, wallLayer);
         if (isWallTouch)
         {
             Flip();
