@@ -24,6 +24,7 @@ public class MovementController : MonoBehaviour
     public bool isOnPlatform;
     public Rigidbody2D platformRb;
 
+    public ParticleController particleController;
 
     private void Start()
     {
@@ -50,11 +51,8 @@ public class MovementController : MonoBehaviour
             rb.linearVelocity = new Vector2(targetSpeed, rb.linearVelocity.y);
         }
 
+        isWallTouch = Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.06f, 0.6f), 0, wallLayer);
 
-
-
-
-            isWallTouch = Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.06f, 0.6f), 0, wallLayer);
         if (isWallTouch)
         {
             Flip();
@@ -63,6 +61,7 @@ public class MovementController : MonoBehaviour
 
     public void Flip()
     {
+        particleController.PlayTouchParticle(wallCheckPoint.position);
         transform.Rotate(0, 180, 0);
         UpdateRelativeTransform();
     }
