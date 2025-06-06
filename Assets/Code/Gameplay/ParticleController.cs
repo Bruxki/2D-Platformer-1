@@ -15,6 +15,7 @@ public class ParticleController : MonoBehaviour
     [Header("Other Particles")]
     [SerializeField] ParticleSystem fallParticle;
     [SerializeField] ParticleSystem touchParticle;
+    [SerializeField] ParticleSystem deathParticle;
 
     [SerializeField] Rigidbody2D playerRb;
 
@@ -38,6 +39,11 @@ public class ParticleController : MonoBehaviour
                 counter = 0;
             }
         }
+    }
+
+    public void PlayDeathparticle()
+    {
+        deathParticle.Play();
     }
 
     public void PlayTouchParticle(Vector2 pos)
